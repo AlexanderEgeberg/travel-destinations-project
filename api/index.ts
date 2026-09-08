@@ -1,6 +1,7 @@
 import express, { type Express, type Request, type Response } from "express";
 import pgp from "pg-promise";
 import dotenv from "dotenv";
+import { db } from "./src/prisma/db.ts";
 
 dotenv.config();
 
@@ -20,12 +21,20 @@ if (!connectionString) {
 }
 
 const pg = pgp();
-const db = pg(connectionString);
+const pgdatabase = pg(connectionString);
 
 app.get("/users", async (req: Request, res: Response) => {
-  const users = await db.manyOrNone("SELECT * FROM users");
+  const users = await pgdatabase.manyOrNone("SELECT * FROM users");
 
   console.log("users", users);
+  res.json({
+    users,
+  });
+});
+
+app.get("/prisma", async (req: Request, res: Response) => {
+  const users = await db.orm.public.User.all();
+
   res.json({
     users,
   });

@@ -4,11 +4,11 @@
   "target": "postgres",
   "profileHash": "3916f444a8a17ad749191acf9e08dad97d1a327b88c2f1d45d12f240296aa8b2",
   "roots": {
-    "post": {
-      "model": "Post",
+    "TRAVEL_DESTINATIONS": {
+      "model": "TravelDestination",
       "namespace": "public"
     },
-    "user": {
+    "USERS": {
       "model": "User",
       "namespace": "public"
     }
@@ -17,17 +17,10 @@
     "namespaces": {
       "public": {
         "models": {
-          "Post": {
+          "TravelDestination": {
             "fields": {
-              "authorId": {
+              "country": {
                 "nullable": false,
-                "type": {
-                  "codecId": "pg/int4@1",
-                  "kind": "scalar"
-                }
-              },
-              "content": {
-                "nullable": true,
                 "type": {
                   "codecId": "pg/text@1",
                   "kind": "scalar"
@@ -36,7 +29,28 @@
               "createdAt": {
                 "nullable": false,
                 "type": {
-                  "codecId": "pg/timestamptz-string@1",
+                  "codecId": "pg/timestamp-string@1",
+                  "kind": "scalar"
+                }
+              },
+              "dateFrom": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamp-string@1",
+                  "kind": "scalar"
+                }
+              },
+              "dateTo": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamp-string@1",
+                  "kind": "scalar"
+                }
+              },
+              "description": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/text@1",
                   "kind": "scalar"
                 }
               },
@@ -47,76 +61,73 @@
                   "kind": "scalar"
                 }
               },
+              "location": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
               "title": {
                 "nullable": false,
                 "type": {
                   "codecId": "pg/text@1",
                   "kind": "scalar"
                 }
-              },
-              "updatedAt": {
-                "nullable": false,
-                "type": {
-                  "codecId": "pg/timestamptz-string@1",
-                  "kind": "scalar"
-                }
               }
             },
-            "relations": {
-              "author": {
-                "cardinality": "N:1",
-                "on": {
-                  "localFields": [
-                    "authorId"
-                  ],
-                  "targetFields": [
-                    "id"
-                  ]
-                },
-                "to": {
-                  "model": "User",
-                  "namespace": "public"
-                }
-              }
-            },
+            "relations": {},
             "storage": {
               "fields": {
-                "authorId": {
-                  "column": "authorId"
-                },
-                "content": {
-                  "column": "content"
+                "country": {
+                  "column": "COUNTRY"
                 },
                 "createdAt": {
-                  "column": "createdAt"
+                  "column": "CREATED_AT"
+                },
+                "dateFrom": {
+                  "column": "DATE_FROM"
+                },
+                "dateTo": {
+                  "column": "DATE_TO"
+                },
+                "description": {
+                  "column": "DESCRIPTION"
                 },
                 "id": {
-                  "column": "id"
+                  "column": "ID"
+                },
+                "location": {
+                  "column": "LOCATION"
                 },
                 "title": {
-                  "column": "title"
-                },
-                "updatedAt": {
-                  "column": "updatedAt"
+                  "column": "TITLE"
                 }
               },
               "namespaceId": "public",
-              "table": "post"
+              "table": "TRAVEL_DESTINATIONS"
             }
           },
           "User": {
             "fields": {
-              "createdAt": {
+              "active": {
                 "nullable": false,
                 "type": {
-                  "codecId": "pg/timestamptz-string@1",
+                  "codecId": "pg/bool@1",
                   "kind": "scalar"
                 }
               },
-              "email": {
+              "age": {
                 "nullable": false,
                 "type": {
-                  "codecId": "pg/text@1",
+                  "codecId": "pg/int4@1",
+                  "kind": "scalar"
+                }
+              },
+              "createdAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamp-string@1",
                   "kind": "scalar"
                 }
               },
@@ -128,67 +139,34 @@
                 }
               },
               "name": {
-                "nullable": true,
-                "type": {
-                  "codecId": "pg/text@1",
-                  "kind": "scalar"
-                }
-              },
-              "updatedAt": {
                 "nullable": false,
                 "type": {
-                  "codecId": "pg/timestamptz-string@1",
-                  "kind": "scalar"
-                }
-              },
-              "username": {
-                "nullable": true,
-                "type": {
                   "codecId": "pg/text@1",
                   "kind": "scalar"
                 }
               }
             },
-            "relations": {
-              "posts": {
-                "cardinality": "1:N",
-                "on": {
-                  "localFields": [
-                    "id"
-                  ],
-                  "targetFields": [
-                    "authorId"
-                  ]
-                },
-                "to": {
-                  "model": "Post",
-                  "namespace": "public"
-                }
-              }
-            },
+            "relations": {},
             "storage": {
               "fields": {
-                "createdAt": {
-                  "column": "createdAt"
+                "active": {
+                  "column": "ACTIVE"
                 },
-                "email": {
-                  "column": "email"
+                "age": {
+                  "column": "AGE"
+                },
+                "createdAt": {
+                  "column": "CREATED_AT"
                 },
                 "id": {
-                  "column": "id"
+                  "column": "ID"
                 },
                 "name": {
-                  "column": "name"
-                },
-                "updatedAt": {
-                  "column": "updatedAt"
-                },
-                "username": {
-                  "column": "username"
+                  "column": "NAME"
                 }
               },
               "namespaceId": "public",
-              "table": "user"
+              "table": "USERS"
             }
           }
         }
@@ -200,28 +178,38 @@
       "public": {
         "entries": {
           "table": {
-            "post": {
+            "TRAVEL_DESTINATIONS": {
               "columns": {
-                "authorId": {
-                  "codecId": "pg/int4@1",
-                  "nativeType": "int4",
-                  "nullable": false
-                },
-                "content": {
+                "COUNTRY": {
                   "codecId": "pg/text@1",
                   "nativeType": "text",
-                  "nullable": true
+                  "nullable": false
                 },
-                "createdAt": {
-                  "codecId": "pg/timestamptz-string@1",
+                "CREATED_AT": {
+                  "codecId": "pg/timestamp-string@1",
                   "default": {
                     "expression": "now()",
                     "kind": "function"
                   },
-                  "nativeType": "timestamptz",
+                  "nativeType": "timestamp",
                   "nullable": false
                 },
-                "id": {
+                "DATE_FROM": {
+                  "codecId": "pg/timestamp-string@1",
+                  "nativeType": "timestamp",
+                  "nullable": false
+                },
+                "DATE_TO": {
+                  "codecId": "pg/timestamp-string@1",
+                  "nativeType": "timestamp",
+                  "nullable": false
+                },
+                "DESCRIPTION": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": true
+                },
+                "ID": {
                   "codecId": "pg/int4@1",
                   "default": {
                     "expression": "autoincrement()",
@@ -230,107 +218,74 @@
                   "nativeType": "int4",
                   "nullable": false
                 },
-                "title": {
+                "LOCATION": {
                   "codecId": "pg/text@1",
                   "nativeType": "text",
                   "nullable": false
                 },
-                "updatedAt": {
-                  "codecId": "pg/timestamptz-string@1",
-                  "nativeType": "timestamptz",
-                  "nullable": false
-                }
-              },
-              "foreignKeys": [
-                {
-                  "source": {
-                    "columns": [
-                      "authorId"
-                    ],
-                    "namespaceId": "public",
-                    "tableName": "post"
-                  },
-                  "target": {
-                    "columns": [
-                      "id"
-                    ],
-                    "namespaceId": "public",
-                    "tableName": "user"
-                  }
-                }
-              ],
-              "indexes": [
-                {
-                  "columns": [
-                    "authorId"
-                  ],
-                  "name": "post_authorId_idx_e47547ed",
-                  "prefix": "post_authorId_idx",
-                  "unique": false
-                }
-              ],
-              "primaryKey": {
-                "columns": [
-                  "id"
-                ]
-              },
-              "uniques": []
-            },
-            "user": {
-              "columns": {
-                "createdAt": {
-                  "codecId": "pg/timestamptz-string@1",
-                  "default": {
-                    "expression": "now()",
-                    "kind": "function"
-                  },
-                  "nativeType": "timestamptz",
-                  "nullable": false
-                },
-                "email": {
+                "TITLE": {
                   "codecId": "pg/text@1",
                   "nativeType": "text",
                   "nullable": false
-                },
-                "id": {
-                  "codecId": "pg/int4@1",
-                  "default": {
-                    "expression": "autoincrement()",
-                    "kind": "function"
-                  },
-                  "nativeType": "int4",
-                  "nullable": false
-                },
-                "name": {
-                  "codecId": "pg/text@1",
-                  "nativeType": "text",
-                  "nullable": true
-                },
-                "updatedAt": {
-                  "codecId": "pg/timestamptz-string@1",
-                  "nativeType": "timestamptz",
-                  "nullable": false
-                },
-                "username": {
-                  "codecId": "pg/text@1",
-                  "nativeType": "text",
-                  "nullable": true
                 }
               },
               "foreignKeys": [],
               "indexes": [],
               "primaryKey": {
                 "columns": [
-                  "id"
+                  "ID"
                 ]
               },
-              "uniques": [
-                {
-                  "columns": [
-                    "email"
-                  ]
+              "uniques": []
+            },
+            "USERS": {
+              "columns": {
+                "ACTIVE": {
+                  "codecId": "pg/bool@1",
+                  "default": {
+                    "kind": "literal",
+                    "value": true
+                  },
+                  "nativeType": "bool",
+                  "nullable": false
+                },
+                "AGE": {
+                  "codecId": "pg/int4@1",
+                  "nativeType": "int4",
+                  "nullable": false
+                },
+                "CREATED_AT": {
+                  "codecId": "pg/timestamp-string@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamp",
+                  "nullable": false
+                },
+                "ID": {
+                  "codecId": "pg/int4@1",
+                  "default": {
+                    "expression": "autoincrement()",
+                    "kind": "function"
+                  },
+                  "nativeType": "int4",
+                  "nullable": false
+                },
+                "NAME": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": false
                 }
-              ]
+              },
+              "foreignKeys": [],
+              "indexes": [],
+              "primaryKey": {
+                "columns": [
+                  "ID"
+                ]
+              },
+              "uniques": []
             }
           }
         },
@@ -338,44 +293,7 @@
         "kind": "postgres-schema"
       }
     },
-    "storageHash": "1e8412e162dbbe69f4bb3bf8d07f0280ae67eaab15c34dcf201e67468315428d"
-  },
-  "execution": {
-    "executionHash": "4abff323cc88151ef9c9a0ec90122cfee6d46814a118cdb66a9fdd94a4123463",
-    "mutations": {
-      "defaults": [
-        {
-          "onCreate": {
-            "id": "timestampNow",
-            "kind": "generator"
-          },
-          "onUpdate": {
-            "id": "timestampNow",
-            "kind": "generator"
-          },
-          "ref": {
-            "column": "updatedAt",
-            "namespace": "public",
-            "table": "post"
-          }
-        },
-        {
-          "onCreate": {
-            "id": "timestampNow",
-            "kind": "generator"
-          },
-          "onUpdate": {
-            "id": "timestampNow",
-            "kind": "generator"
-          },
-          "ref": {
-            "column": "updatedAt",
-            "namespace": "public",
-            "table": "user"
-          }
-        }
-      ]
-    }
+    "storageHash": "0329faf9cebfee30706d53a421158a5dca9300a75488d510bd30ca8d6865377b"
   },
   "capabilities": {
     "postgres": {
