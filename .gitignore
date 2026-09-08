@@ -3,3 +3,12 @@ node_modules
 .env
 .env.*
 !.env.example
+
+#pkg
+.yarn
+
+#AI stuff
+.claude
+.cursor
+.devin
+.agents
