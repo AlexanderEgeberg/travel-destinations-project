@@ -23,7 +23,7 @@ const pg = pgp();
 const db = pg(connectionString);
 
 app.get("/users", async (req: Request, res: Response) => {
-  const users = await db.oneOrNone("SELECT * FROM users");
+  const users = await db.manyOrNone("SELECT * FROM users");
 
   console.log("users", users);
   res.json({
