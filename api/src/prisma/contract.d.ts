@@ -33,7 +33,7 @@ import type {
 } from '@prisma/orm-postgres/contract/types';
 
 export type StorageHash =
-  StorageHashBase<'0329faf9cebfee30706d53a421158a5dca9300a75488d510bd30ca8d6865377b'>;
+  StorageHashBase<'384805b8c63bcb6487d5ffb90720522794ce79b88c17be6a103fb8bd10e6fc3f'>;
 export type ExecutionHash = ExecutionHashBase<string>;
 export type ProfileHash =
   ProfileHashBase<'3916f444a8a17ad749191acf9e08dad97d1a327b88c2f1d45d12f240296aa8b2'>;
@@ -253,6 +253,8 @@ export type FieldOutputTypes = {
     readonly User: {
       readonly id: CodecTypes['pg/int4@1']['output'];
       readonly name: CodecTypes['pg/text@1']['output'];
+      readonly username: CodecTypes['pg/text@1']['output'];
+      readonly password: CodecTypes['pg/text@1']['output'];
       readonly age: CodecTypes['pg/int4@1']['output'];
       readonly active: CodecTypes['pg/bool@1']['output'];
       readonly createdAt: CodecTypes['pg/timestamp-string@1']['output'];
@@ -274,6 +276,8 @@ export type FieldInputTypes = {
     readonly User: {
       readonly id: CodecTypes['pg/int4@1']['input'];
       readonly name: CodecTypes['pg/text@1']['input'];
+      readonly username: CodecTypes['pg/text@1']['input'];
+      readonly password: CodecTypes['pg/text@1']['input'];
       readonly age: CodecTypes['pg/int4@1']['input'];
       readonly active: CodecTypes['pg/bool@1']['input'];
       readonly createdAt: CodecTypes['pg/timestamp-string@1']['input'];
@@ -298,6 +302,8 @@ export type StorageColumnTypes = {
       readonly CREATED_AT: CodecTypes['pg/timestamp-string@1']['output'];
       readonly ID: CodecTypes['pg/int4@1']['output'];
       readonly NAME: CodecTypes['pg/text@1']['output'];
+      readonly PASSWORD: CodecTypes['pg/text@1']['output'];
+      readonly USERNAME: CodecTypes['pg/text@1']['output'];
     };
   };
 };
@@ -319,6 +325,8 @@ export type StorageColumnInputTypes = {
       readonly CREATED_AT: CodecTypes['pg/timestamp-string@1']['input'];
       readonly ID: CodecTypes['pg/int4@1']['input'];
       readonly NAME: CodecTypes['pg/text@1']['input'];
+      readonly PASSWORD: CodecTypes['pg/text@1']['input'];
+      readonly USERNAME: CodecTypes['pg/text@1']['input'];
     };
   };
 };
@@ -409,6 +417,16 @@ type ContractBase = Omit<
                   readonly codecId: 'pg/text@1';
                   readonly nullable: false;
                 };
+                readonly USERNAME: {
+                  readonly nativeType: 'text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: false;
+                };
+                readonly PASSWORD: {
+                  readonly nativeType: 'text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: false;
+                };
                 readonly AGE: {
                   readonly nativeType: 'int4';
                   readonly codecId: 'pg/int4@1';
@@ -431,7 +449,7 @@ type ContractBase = Omit<
                 };
               };
               primaryKey: { readonly columns: readonly ['ID'] };
-              uniques: readonly [];
+              uniques: readonly [{ readonly columns: readonly ['USERNAME'] }];
               indexes: readonly [];
               foreignKeys: readonly [];
             };
@@ -526,6 +544,14 @@ type ContractBase = Omit<
                 readonly nullable: false;
                 readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
               };
+              readonly username: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
+              readonly password: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
               readonly age: {
                 readonly nullable: false;
                 readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/int4@1' };
@@ -549,6 +575,8 @@ type ContractBase = Omit<
               readonly fields: {
                 readonly id: { readonly column: 'ID' };
                 readonly name: { readonly column: 'NAME' };
+                readonly username: { readonly column: 'USERNAME' };
+                readonly password: { readonly column: 'PASSWORD' };
                 readonly age: { readonly column: 'AGE' };
                 readonly active: { readonly column: 'ACTIVE' };
                 readonly createdAt: { readonly column: 'CREATED_AT' };
