@@ -97,7 +97,7 @@ app.post("/travel_destination", async (req: Request, res: Response) => {
   });
 });
 
-app.put("/travel_destination/{:id}", async (req: Request, res: Response) => {
+app.put("/travel_destination/:id", async (req: Request, res: Response) => {
   const parsed = await TravelDestination.safeParseAsync(req.body);
 
   const parsedParams = await TravelDestinationParams.safeParseAsync(req.params);
@@ -125,7 +125,7 @@ app.put("/travel_destination/{:id}", async (req: Request, res: Response) => {
   });
 });
 
-app.delete("/travel_destination/{:id}", async (req: Request, res: Response) => {
+app.delete("/travel_destination/:id", async (req: Request, res: Response) => {
   const parsedParams = await TravelDestinationParams.safeParseAsync(req.params);
 
   if (!parsedParams.success) {
@@ -138,6 +138,16 @@ app.delete("/travel_destination/{:id}", async (req: Request, res: Response) => {
   const travelDestination = await db.orm.public.TravelDestination.where({
     id: Number(parsedParams.data.id),
   }).delete();
+
+  // plain SQL
+  // const plan = db.raw.sql`
+  // DELETE FROM "TRAVEL_DESTINATIONS"
+  // WHERE "ID" = ${Number(parsedParams.data.id)}
+  // `
+  //   .affectedCount()
+  //   .build();
+
+  // const result = await db.runtime().execute(plan);
 
   return res.status(200).json({
     travelDestination,
