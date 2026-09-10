@@ -5,7 +5,6 @@ model User {
   name      String          @map("NAME")
   username  String          @unique @map("USERNAME")
   password  String          @map("PASSWORD")
-  age       Int             @map("AGE")
   active    Boolean         @default(true) @map("ACTIVE")
   createdAt TimestampString @default(now()) @map("CREATED_AT")
 

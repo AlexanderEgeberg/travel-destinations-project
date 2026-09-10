@@ -38,3 +38,7 @@ read all
 read 1
 update 1
 delete 1 auth gate
+
+1-many relation users -> travel_destinations
+travel_destinations private/public (need auth to get private) call it published?
+add pics ( read write file in api folder, store reference in db)
