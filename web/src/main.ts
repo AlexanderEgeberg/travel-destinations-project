@@ -67,7 +67,7 @@ function renderNav() {
   nav.innerHTML = `
   <ul>
     <li class="nav-home">
-      <a href="/#"><img src="${travelIcon}" alt="" />home</a>
+      <a href="/#"><img src="${travelIcon}" alt="" />Homepage</a>
     </li>
     <li class="nav-auth">
       <span>Welcome ${user}</span>

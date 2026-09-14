@@ -286,6 +286,43 @@ ul {
   }
 }
 
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+}
+
+.form-group {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  align-items: center;
+  gap: 12px;
+}
+
+.form-group textarea {
+  min-height: 3em;
+  resize: vertical;
+}
+
+.form-group input,
+.form-group textarea {
+  font: inherit;
+  color: var(--text-h);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 10px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+form .button {
+  align-self: flex-start;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
 .add-card {
   display: flex;
   flex-direction: column;
@@ -302,4 +339,3 @@ ul {
   line-height: 1;
   color: var(--accent);
 }
-

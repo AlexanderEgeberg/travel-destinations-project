@@ -50,7 +50,7 @@ export async function renderTravel(app: HTMLDivElement) {
     details.appendChild(actions);
 
     if (editable) {
-      travelList.appendChild(
+      details.appendChild(
         createTravelForm(
           "Save changes",
           async (data) => {
