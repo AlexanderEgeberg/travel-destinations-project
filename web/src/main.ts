@@ -1,26 +1,113 @@
+import { renderHomepage } from "./routes/home.ts";
 import "./style.css";
-import heroImg from "./assets/hero.png";
-import typescriptLogo from "./assets/typescript.svg";
-import viteLogo from "./assets/vite.svg";
-import { getEntries } from "./api.ts";
 
-document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
-<section id="center">
-  <div class="hero">
-    <img src="${heroImg}" class="base" width="170" height="179">
-    <img src="${typescriptLogo}" class="framework" alt="TypeScript logo"/>
-    <img src="${viteLogo}" class="vite" alt="Vite logo" />
-  </div>
-  <div>
-    <h1>Get started</h1>
-    <p>Edit <code>src/main.ts</code> and save to test <code>HMR</code></p>
-  </div>
+type Route =
+  | "home"
+  | "login"
+  | "travel"
+  | "create-account"
+  | "create-travel";
 
-  <button id="fetchTravels" type="button" class="counter">Click me</button>
+const publicRoutes: Record<string, () => Promise<void>> = {
+  login: async () => {
+    const { renderLogin } = await import("./routes/login.ts");
+    renderLogin(app);
+  },
+  "create-account": async () => {
+    const { renderCreateAccount } = await import("./routes/createAccount.ts");
+    renderCreateAccount(app);
+  },
+  travel: async () => {
+    const { renderTravel } = await import("./routes/travel.ts");
+    renderTravel(app);
+  },
+};
 
-</section>
-`;
+const protectedRoutes: Record<string, () => Promise<void>> = {
+  "create-travel": async () => {
+    const { renderCreateTravel } = await import("./routes/createTravel.ts");
+    renderCreateTravel(app);
+  },
+};
 
-document
-  .querySelector<HTMLButtonElement>("#fetchTravels")!
-  .addEventListener("click", getEntries);
+const navElement = document.querySelector<HTMLDivElement>("#nav");
+
+const appElement = document.querySelector<HTMLDivElement>("#app");
+
+if (!appElement || !navElement) {
+  throw new Error("Missing app element or nav element");
+}
+
+const nav = navElement;
+const app = appElement;
+
+function parseJwt(token?: string) {
+  if (!token) return;
+  var base64Url = token.split(".")[1];
+  var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+  var jsonPayload = decodeURIComponent(
+    window
+      .atob(base64)
+      .split("")
+      .map(function (c) {
+        return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+      })
+      .join(""),
+  );
+
+  return JSON.parse(jsonPayload);
+}
+
+const loginHTML = `<li><button class="button"><a href="/#/login">login</a></button></li>`;
+const logoutHTML = `<li><button id="logout" class="button">logout</button></li>`;
+
+function renderNav() {
+  const accessToken = localStorage.getItem("accessToken");
+  const authButtonHTML = accessToken ? logoutHTML : `${loginHTML}`;
+  console.log(parseJwt(accessToken ?? ""));
+  const user = accessToken ? parseJwt(accessToken).username : "gæst";
+
+  nav.innerHTML = `
+  <ul>
+    ${authButtonHTML}
+    <li><a href="/#">home</a></li>
+    <span>Velkommen ${user}</span>
+  </ul>`;
+
+  const logoutButton = nav.querySelector<HTMLButtonElement>("#logout");
+
+  logoutButton?.addEventListener("click", () => {
+    localStorage.clear();
+    renderNav();
+  });
+}
+
+async function renderRoute() {
+  renderNav();
+  const routePath = window.location.hash.slice(2);
+  const route = routePath.split("/")[0] as Route | "";
+
+  if (route in protectedRoutes) {
+    const accessToken = localStorage.getItem("accessToken");
+
+    if (!accessToken) {
+      window.location.hash = "#/login";
+      return;
+    }
+
+    await protectedRoutes[route]();
+    return;
+  }
+
+  if (route in publicRoutes) {
+    await publicRoutes[route]();
+    return;
+  }
+
+  await renderHomepage(app);
+}
+
+window.addEventListener("hashchange", renderRoute);
+
+renderNav();
+renderRoute();

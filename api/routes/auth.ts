@@ -111,15 +111,23 @@ router.post("/create-user", async (req, res) => {
       age: parsed.data.age,
     });
 
-    return res.status(201).json({
-      user: {
-        id: user.id,
+    const tokenSecret = process.env.TOKEN_SECRET;
+
+    if (!tokenSecret) {
+      return res.status(500).json({
+        error: "Missing TOKEN_SECRET",
+      });
+    }
+
+    const accessToken = jwt.sign(
+      {
         username: user.username,
-        name: user.name,
-        age: user.age,
-        active: user.active,
-        createdAt: user.createdAt,
       },
+      tokenSecret,
+    );
+
+    return res.status(201).json({
+      accessToken,
     });
   } catch (e) {
     return res.status(500).json({
