@@ -342,6 +342,10 @@ form .button {
   cursor: pointer;
 }
 
+.text-muted {
+  opacity: 0.6;
+}
+
 .add-card {
   display: flex;
   flex-direction: column;

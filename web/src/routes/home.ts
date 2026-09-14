@@ -6,7 +6,7 @@ export async function renderHomepage(app: HTMLDivElement) {
   app.innerHTML = `
 <section id="center">
   <h1>Travel destinations</h1>
-  ${!isLoggedIn ? "<p>Login to add travel destinations</p>" : ""}
+  ${!isLoggedIn ? '<p class="text-muted">Login to add travel destinations</p>' : ""}
   <section>
     <div id="travelList" class="travel-grid"></div>
   </section>

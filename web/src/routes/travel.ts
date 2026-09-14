@@ -12,6 +12,7 @@ export async function renderTravel(app: HTMLDivElement) {
   app.innerHTML = `
     <section>
         <div id="travelList"></div>
+        ${!isLoggedIn ? '<p class="text-muted">Login to edit travel destinations</p>' : ""}
     </section>
 `;
 
@@ -47,9 +48,10 @@ export async function renderTravel(app: HTMLDivElement) {
     actions.className = "travel-card-actions";
     actions.appendChild(createToggleButton(editable, setEditable));
     actions.appendChild(createDeleteButton(travel.id));
-    details.appendChild(actions);
+    details.prepend(actions);
 
     if (editable) {
+      details.querySelectorAll("p").forEach((p) => (p.hidden = true));
       details.appendChild(
         createTravelForm(
           "Save changes",
