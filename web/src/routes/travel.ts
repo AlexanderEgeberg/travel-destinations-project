@@ -2,7 +2,7 @@ import "../style.css";
 import travel from "../assets/travel.png";
 import { deleteTravel, fetchTravel, updateTravel } from "../api";
 import { createTravelCard } from "../components/travelCard";
-import { renderTravelForm } from "../components/travelForm.ts";
+import { createTravelForm } from "../components/travelForm.ts";
 import { useState } from "../hooks/useState.ts";
 
 export async function renderTravel(app: HTMLDivElement) {
@@ -43,10 +43,13 @@ export async function renderTravel(app: HTMLDivElement) {
 
     const isLoggedIn = !!localStorage.getItem("accessToken");
 
+    const card = createTravelCard(travel);
+    travelList.appendChild(card);
+
     if (isLoggedIn) {
       const toggleButton = document.createElement("button");
       toggleButton.className = "button";
-      toggleButton.textContent = editable ? "Cancel" : "Edit";
+      toggleButton.textContent = editable ? "Cancel edit" : "Edit";
       toggleButton.addEventListener("click", () => setEditable(!editable));
       travelList.appendChild(toggleButton);
 
@@ -66,23 +69,20 @@ export async function renderTravel(app: HTMLDivElement) {
         }
       });
       travelList.appendChild(deleteButton);
-    }
 
-    if (isLoggedIn && editable) {
-      renderTravelForm(
-        travelList,
-        "Save changes",
-        async (data) => {
-          await updateTravel(travel.id, data);
-          setEditable(false);
-        },
-        travel,
-      );
-      return;
+      if (editable) {
+        travelList.appendChild(
+          createTravelForm(
+            "Save changes",
+            async (data) => {
+              await updateTravel(travel.id, data);
+              setEditable(false);
+            },
+            travel,
+          ),
+        );
+      }
     }
-
-    const card = createTravelCard(travel);
-    travelList.appendChild(card);
   } catch (error) {
     travelList.textContent = "Failed to load travel destinations.";
     console.error(error);

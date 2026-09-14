@@ -35,8 +35,7 @@ travelFormTemplate.innerHTML = `
   </form>
 `;
 
-export function renderTravelForm(
-  app: HTMLDivElement,
+export function createTravelForm(
   submitLabel: string,
   onSubmit: (data: NewTravelDestination) => Promise<void>,
   initial?: TravelDestination,
@@ -87,5 +86,5 @@ export function renderTravelForm(
     }
   });
 
-  app.replaceChildren(form);
+  return form;
 }
