@@ -1,9 +1,12 @@
 import "../style.css";
 import travel from "../assets/travel.png";
-import { fetchTravel } from "../api";
+import { deleteTravel, fetchTravel, updateTravel } from "../api";
 import { createTravelCard } from "../components/travelCard";
+import { renderTravelForm } from "../components/travelForm.ts";
+import { useState } from "../hooks/useState.ts";
 
 export async function renderTravel(app: HTMLDivElement) {
+  const [editable, setEditable] = useState(false, () => renderTravel(app));
   const travelId = window.location.hash.split("/").at(-1) ?? "";
 
   app.innerHTML = `
@@ -38,8 +41,48 @@ export async function renderTravel(app: HTMLDivElement) {
       return;
     }
 
+    const isLoggedIn = !!localStorage.getItem("accessToken");
+
+    if (isLoggedIn) {
+      const toggleButton = document.createElement("button");
+      toggleButton.className = "button";
+      toggleButton.textContent = editable ? "Cancel" : "Edit";
+      toggleButton.addEventListener("click", () => setEditable(!editable));
+      travelList.appendChild(toggleButton);
+
+      const deleteButton = document.createElement("button");
+      deleteButton.className = "button";
+      deleteButton.textContent = "Delete";
+      deleteButton.addEventListener("click", async () => {
+        if (!window.confirm("Delete this travel destination?")) return;
+
+        try {
+          await deleteTravel(travel.id);
+          window.location.hash = "#/";
+        } catch (error) {
+          alert(
+            error instanceof Error ? error.message : "Failed to delete travel",
+          );
+        }
+      });
+      travelList.appendChild(deleteButton);
+    }
+
+    if (isLoggedIn && editable) {
+      renderTravelForm(travelList, {
+        heading: "Edit travel",
+        submitLabel: "Save changes",
+        initial: travel,
+        onSubmit: async (data) => {
+          await updateTravel(travel.id, data);
+          setEditable(false);
+        },
+      });
+      return;
+    }
+
     const card = createTravelCard(travel);
-    travelList.replaceChildren(card);
+    travelList.appendChild(card);
   } catch (error) {
     travelList.textContent = "Failed to load travel destinations.";
     console.error(error);

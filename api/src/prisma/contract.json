@@ -117,13 +117,6 @@
                   "kind": "scalar"
                 }
               },
-              "age": {
-                "nullable": false,
-                "type": {
-                  "codecId": "pg/int4@1",
-                  "kind": "scalar"
-                }
-              },
               "createdAt": {
                 "nullable": false,
                 "type": {
@@ -135,13 +128,6 @@
                 "nullable": false,
                 "type": {
                   "codecId": "pg/int4@1",
-                  "kind": "scalar"
-                }
-              },
-              "name": {
-                "nullable": false,
-                "type": {
-                  "codecId": "pg/text@1",
                   "kind": "scalar"
                 }
               },
@@ -166,17 +152,11 @@
                 "active": {
                   "column": "ACTIVE"
                 },
-                "age": {
-                  "column": "AGE"
-                },
                 "createdAt": {
                   "column": "CREATED_AT"
                 },
                 "id": {
                   "column": "ID"
-                },
-                "name": {
-                  "column": "NAME"
                 },
                 "password": {
                   "column": "PASSWORD"
@@ -269,11 +249,6 @@
                   "nativeType": "bool",
                   "nullable": false
                 },
-                "AGE": {
-                  "codecId": "pg/int4@1",
-                  "nativeType": "int4",
-                  "nullable": false
-                },
                 "CREATED_AT": {
                   "codecId": "pg/timestamp-string@1",
                   "default": {
@@ -290,11 +265,6 @@
                     "kind": "function"
                   },
                   "nativeType": "int4",
-                  "nullable": false
-                },
-                "NAME": {
-                  "codecId": "pg/text@1",
-                  "nativeType": "text",
                   "nullable": false
                 },
                 "PASSWORD": {
@@ -329,7 +299,7 @@
         "kind": "postgres-schema"
       }
     },
-    "storageHash": "384805b8c63bcb6487d5ffb90720522794ce79b88c17be6a103fb8bd10e6fc3f"
+    "storageHash": "744429b4cb814b76c8235135282dfd56e447f2888a7e14c406fd147671c0e5ab"
   },
   "capabilities": {
     "postgres": {

@@ -85,7 +85,7 @@ export async function fetchTravel(id: string) {
 
 export type NewTravelDestination = Omit<TravelDestination, "id" | "createdAt">;
 
-export async function postEntry(data: NewTravelDestination) {
+export async function postTravel(data: NewTravelDestination) {
   const accessToken = localStorage.getItem("accessToken");
 
   const response = await fetch(endpoint + "/travel_destination", {
@@ -103,13 +103,35 @@ export async function postEntry(data: NewTravelDestination) {
   return result;
 }
 
-export async function deleteEntry(id: number) {
-  // TODO 4: DELETE til `${endpoint}/${id}`. Kontrollér response.ok.
-  // UI behøver ikke svar-bodyen, så undlad response.json() her.
-  void id;
+export async function deleteTravel(id: number) {
+  const accessToken = localStorage.getItem("accessToken");
+
+  const response = await fetch(endpoint + "/travel_destination/" + id, {
+    method: "delete",
+    headers: {
+      ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
+    },
+  });
+
+  if (!response.ok) throw new Error(`DELETE fejlede: ${response.status}`);
 }
-export async function updateEntry(id: number, data: TravelDestination) {
-  // TODO 4: DELETE til `${endpoint}/${id}`. Kontrollér response.ok.
-  // UI behøver ikke svar-bodyen, så undlad response.json() her.
-  void id;
+
+export async function updateTravel(id: number, data: NewTravelDestination) {
+  const accessToken = localStorage.getItem("accessToken");
+
+  const response = await fetch(endpoint + "/travel_destination/" + id, {
+    method: "put",
+    headers: {
+      "Content-Type": "application/json",
+      ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) throw new Error(`PUT fejlede: ${response.status}`);
+
+  const result = (await response.json()) as {
+    travelDestination: TravelDestination;
+  };
+  return result.travelDestination;
 }

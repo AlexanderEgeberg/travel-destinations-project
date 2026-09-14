@@ -12,24 +12,26 @@ const UserSchema = z
   .object({
     username: z
       .string()
-      .min(8)
-      .regex(/^[A-Za-z0-9]+$/, "Username can only contain letters and numbers"),
+      .min(4)
+      .regex(/^[A-Za-z0-9]+$/, "Username can only contain letters and numbers")
+      .transform((username) => username.toLowerCase()),
     password: z
       .string()
-      .min(12)
+      .min(8)
       .regex(
         /(?=.*[A-Z])/,
         "Password must contain at least one uppercase letter",
       )
       .regex(/(?=.*\d)/, "Password must contain at least one number"),
-    name: z.string(),
-    age: z.number().min(13),
   })
   .strict();
 
 const LoginSchema = z
   .object({
-    username: z.string().min(1),
+    username: z
+      .string()
+      .min(1)
+      .transform((username) => username.toLowerCase()),
     password: z.string().min(1),
   })
   .strict();
@@ -107,8 +109,6 @@ router.post("/create-user", async (req, res) => {
     const user = await db.orm.public.User.create({
       username: parsed.data.username,
       password: hashedPassword,
-      name: parsed.data.name,
-      age: parsed.data.age,
     });
 
     const tokenSecret = process.env.TOKEN_SECRET;

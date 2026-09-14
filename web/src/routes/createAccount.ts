@@ -58,6 +58,8 @@ export function renderCreateAccount(app: HTMLDivElement) {
       event.preventDefault();
 
       const data = Object.fromEntries(new FormData(createAccountForm));
+
+      const username = String(data.username ?? "");
       const password = String(data.password ?? "");
       const confirmPassword = String(data.confirmPassword ?? "");
 
@@ -65,20 +67,20 @@ export function renderCreateAccount(app: HTMLDivElement) {
         throw new Error("Passwords do not match");
       }
 
-      const token = await createUser(
-        data as {
-          username: string;
-          password: string;
-        },
-      );
+      if (!password || !username) {
+        throw new Error("Missing username or password");
+      }
+
+      const token = await createUser({
+        username,
+        password,
+      });
 
       console.log("token", token);
       localStorage.setItem("accessToken", token.accessToken);
       window.location.hash = "#/";
     } catch (error) {
-      alert(
-        error instanceof Error ? error.message : "Failed to create account",
-      );
+      alert(`error creating account: ${error}`);
     }
   }
 

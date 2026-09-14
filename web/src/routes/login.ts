@@ -60,22 +60,17 @@ export function renderLogin(app: HTMLDivElement) {
 
       console.log("event", data);
 
-      const token = await login(data as { username: string; password: string });
+      const token = await login({
+        username: data.username as string,
+        password: data.password as string,
+      });
 
       console.log("token", token);
       localStorage.setItem("accessToken", token.accessToken);
       window.location.hash = "#/";
     } catch (error) {
-      alert("yo");
+      alert(`error login in: ${error}`);
     }
   }
   form.addEventListener("submit", handleSubmit);
-
-  // if (!homeButton) {
-  //   throw new Error("Missing required DOM elements");
-  // }
-
-  // homeButton.addEventListener("click", () => {
-  //   window.location.hash = "#/";
-  // });
 }
