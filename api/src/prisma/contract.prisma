@@ -16,6 +16,7 @@ model TravelDestination {
   dateFrom    TimestampString @map("DATE_FROM")
   dateTo      TimestampString @map("DATE_TO")
   description String?         @map("DESCRIPTION")
+  imgSrc      String          @map("IMG_SRC")
   location    String          @map("LOCATION")
   country     String          @map("COUNTRY")
   createdAt   TimestampString @default(now()) @map("CREATED_AT")

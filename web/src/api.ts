@@ -4,6 +4,7 @@ export type TravelDestination = {
   dateFrom: string;
   dateTo: string;
   description: string | null;
+  imgSrc: string;
   location: string;
   country: string;
   createdAt: string;

@@ -13,6 +13,11 @@ const TravelDestination = z
     dateFrom: z.string().min(1),
     dateTo: z.string().min(1),
     description: z.string().optional().nullable(),
+    imgSrc: z
+      .url()
+      .refine((url) => /\.(png|jpe?g)$/i.test(new URL(url).pathname), {
+        error: "Image link must point to a .png, .jpg, or .jpeg file",
+      }),
     location: z.string().min(1),
     country: z.string().min(1),
     createdAt: z.string().min(1).optional(),

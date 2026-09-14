@@ -69,15 +69,15 @@ export async function renderTravel(app: HTMLDivElement) {
     }
 
     if (isLoggedIn && editable) {
-      renderTravelForm(travelList, {
-        heading: "Edit travel",
-        submitLabel: "Save changes",
-        initial: travel,
-        onSubmit: async (data) => {
+      renderTravelForm(
+        travelList,
+        "Save changes",
+        async (data) => {
           await updateTravel(travel.id, data);
           setEditable(false);
         },
-      });
+        travel,
+      );
       return;
     }
 
