@@ -87,52 +87,62 @@ app.get("/travel_destinations", async (req: Request, res: Response) => {
   });
 });
 
-app.post("/travel_destination", async (req: Request, res: Response) => {
-  const parsed = await TravelDestination.safeParseAsync(req.body);
+app.post(
+  "/travel_destination",
+  authenticateToken,
+  async (req: Request, res: Response) => {
+    const parsed = await TravelDestination.safeParseAsync(req.body);
 
-  if (!parsed.success) {
-    return res.status(400).json({
-      error: "Invalid request body",
-      details: parsed.error.flatten(),
+    if (!parsed.success) {
+      return res.status(400).json({
+        error: "Invalid request body",
+        details: parsed.error.flatten(),
+      });
+    }
+
+    const travelDestination = await db.orm.public.TravelDestination.create(
+      parsed.data,
+    );
+
+    return res.status(200).json({
+      travelDestination,
     });
-  }
+  },
+);
 
-  const travelDestination = await db.orm.public.TravelDestination.create(
-    parsed.data,
-  );
+app.put(
+  "/travel_destination/:id",
+  authenticateToken,
+  async (req: Request, res: Response) => {
+    const parsed = await TravelDestination.safeParseAsync(req.body);
 
-  return res.status(200).json({
-    travelDestination,
-  });
-});
+    const parsedParams = await TravelDestinationParams.safeParseAsync(
+      req.params,
+    );
 
-app.put("/travel_destination/:id", async (req: Request, res: Response) => {
-  const parsed = await TravelDestination.safeParseAsync(req.body);
+    if (!parsedParams.success) {
+      return res.status(400).json({
+        error: "Invalid request params",
+        details: parsedParams.error.flatten(),
+      });
+    }
 
-  const parsedParams = await TravelDestinationParams.safeParseAsync(req.params);
+    if (!parsed.success) {
+      return res.status(400).json({
+        error: "Invalid request body",
+        details: parsed.error.flatten(),
+      });
+    }
 
-  if (!parsedParams.success) {
-    return res.status(400).json({
-      error: "Invalid request params",
-      details: parsedParams.error.flatten(),
+    const travelDestination = await db.orm.public.TravelDestination.where({
+      id: Number(parsedParams.data.id),
+    }).update(parsed.data);
+
+    return res.status(200).json({
+      travelDestination,
     });
-  }
-
-  if (!parsed.success) {
-    return res.status(400).json({
-      error: "Invalid request body",
-      details: parsed.error.flatten(),
-    });
-  }
-
-  const travelDestination = await db.orm.public.TravelDestination.where({
-    id: Number(parsedParams.data.id),
-  }).update(parsed.data);
-
-  return res.status(200).json({
-    travelDestination,
-  });
-});
+  },
+);
 
 app.delete(
   "/travel_destination/:id",

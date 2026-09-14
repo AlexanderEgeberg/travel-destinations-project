@@ -61,7 +61,6 @@ const logoutHTML = `<button id="logout" class="button">logout</button>`;
 function renderNav() {
   const accessToken = localStorage.getItem("accessToken");
   const authButtonHTML = accessToken ? logoutHTML : loginHTML;
-  console.log(parseJwt(accessToken ?? ""));
   const user = accessToken ? parseJwt(accessToken).username : "Guest";
 
   nav.innerHTML = `
