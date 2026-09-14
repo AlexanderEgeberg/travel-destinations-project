@@ -1,5 +1,6 @@
 import { renderHomepage } from "./routes/home.ts";
 import { resetState } from "./hooks/useState.ts";
+import travelIcon from "./assets/travel.png";
 import "./style.css";
 
 type Route = "home" | "login" | "travel" | "create-account" | "create-travel";
@@ -54,22 +55,24 @@ function parseJwt(token?: string) {
   return JSON.parse(jsonPayload);
 }
 
-const loginHTML = `<li><button class="button"><a href="/#/login">login</a></button></li>`;
-const logoutHTML = `<li><button id="logout" class="button">logout</button></li>`;
-const createHTML = `<li><button class="button"><a href="/#/create-travel">create</a></button></li>`;
+const loginHTML = `<button class="button"><a href="/#/login">login</a></button>`;
+const logoutHTML = `<button id="logout" class="button">logout</button>`;
 
 function renderNav() {
   const accessToken = localStorage.getItem("accessToken");
-  const authButtonHTML = accessToken ? logoutHTML : `${loginHTML}`;
+  const authButtonHTML = accessToken ? logoutHTML : loginHTML;
   console.log(parseJwt(accessToken ?? ""));
   const user = accessToken ? parseJwt(accessToken).username : "gæst";
 
   nav.innerHTML = `
   <ul>
-    ${authButtonHTML}
-    ${accessToken ? createHTML : ""}
-    <li><a href="/#">Homepage</a></li>
-    <span>Welcome ${user}</span>
+    <li class="nav-home">
+      <a href="/#"><img src="${travelIcon}" alt="" />home</a>
+    </li>
+    <li class="nav-auth">
+      <span>Welcome ${user}</span>
+      ${authButtonHTML}
+    </li>
   </ul>`;
 
   const logoutButton = nav.querySelector<HTMLButtonElement>("#logout");
