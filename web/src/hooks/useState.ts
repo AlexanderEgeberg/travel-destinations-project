@@ -1,6 +1,10 @@
 let state: unknown;
 let hasState = false;
 
+export function resetState() {
+  hasState = false;
+}
+
 export function useState<T>(
   initial: T,
   rerender: () => void,

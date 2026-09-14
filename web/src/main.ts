@@ -1,12 +1,8 @@
 import { renderHomepage } from "./routes/home.ts";
+import { resetState } from "./hooks/useState.ts";
 import "./style.css";
 
-type Route =
-  | "home"
-  | "login"
-  | "travel"
-  | "create-account"
-  | "create-travel";
+type Route = "home" | "login" | "travel" | "create-account" | "create-travel";
 
 const publicRoutes: Record<string, () => Promise<void>> = {
   login: async () => {
@@ -86,6 +82,7 @@ function renderNav() {
 
 async function renderRoute() {
   renderNav();
+  resetState();
   const routePath = window.location.hash.slice(2);
   const route = routePath.split("/")[0] as Route | "";
 
