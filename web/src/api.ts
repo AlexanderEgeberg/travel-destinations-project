@@ -83,10 +83,24 @@ export async function fetchTravel(id: string) {
   return result;
 }
 
-export async function postEntry(data: TravelDestination) {
-  // TODO 3: POST til endpoint. Send data som JSON med Content-Type-header.
-  // Kontrollér response.ok, og returnér response.json().
-  void data;
+export type NewTravelDestination = Omit<TravelDestination, "id" | "createdAt">;
+
+export async function postEntry(data: NewTravelDestination) {
+  const accessToken = localStorage.getItem("accessToken");
+
+  const response = await fetch(endpoint + "/travel_destination", {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+      ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) throw new Error(`POST fejlede: ${response.status}`);
+
+  const result = (await response.json()) as { travel: TravelDestination };
+  return result;
 }
 
 export async function deleteEntry(id: number) {

@@ -60,6 +60,7 @@ function parseJwt(token?: string) {
 
 const loginHTML = `<li><button class="button"><a href="/#/login">login</a></button></li>`;
 const logoutHTML = `<li><button id="logout" class="button">logout</button></li>`;
+const createHTML = `<li><button class="button"><a href="/#/create-travel">create</a></button></li>`;
 
 function renderNav() {
   const accessToken = localStorage.getItem("accessToken");
@@ -70,6 +71,7 @@ function renderNav() {
   nav.innerHTML = `
   <ul>
     ${authButtonHTML}
+    ${accessToken ? createHTML : ""}
     <li><a href="/#">home</a></li>
     <span>Velkommen ${user}</span>
   </ul>`;

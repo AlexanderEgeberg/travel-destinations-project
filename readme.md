@@ -24,7 +24,7 @@ suitable. We should have front-end validation where possible.
 o 1 List view page, showing multiple/all travel destinations.  ✅
 
 o 1 page for showing an existing travel destination (for updating). ✅
-• Add create -
+• Add create - ✅
 • The ability to update existing destinations .
 • Use the same layout as creation, but with pre-filled information from the entity
 we want to edit.
