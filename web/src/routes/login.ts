@@ -1,5 +1,4 @@
 import "../style.css";
-import travel from "../assets/travel.png";
 import { login } from "../api";
 
 export function renderLogin(app: HTMLDivElement) {
@@ -12,37 +11,27 @@ export function renderLogin(app: HTMLDivElement) {
 
   app.innerHTML = `
 <section id="center">
-  <div class="hero">
-    <img src="${travel}" class="base" width="170" height="179">
-  </div>
-  <div>
+  <div class="form-card">
     <h1>Login</h1>
       <form>
         <div class="form-group">
           <label for="username">username</label>
-          <input id="username" name="username" type="text" required autocomplete="given-name" aria-errormessage="username-error" />
-          <p class="error-message" id="username-error">
-            Skriv et username.
-          </p>
+          <input id="username" name="username" type="text" required/>
         </div>
         <div class="form-group">
           <label for="password">password</label>
-          <input id="password" name="password" type="password" required autocomplete="family-name" aria-errormessage="password-error" />
-          <p class="error-message" id="password-error">
-            Skriv et password.
-          </p>
+          <input id="password" name="password" type="password" required />
         </div>
-        <button class="button" type="submit">Tilføj tilmelding</button>
+        <button class="button" type="submit">Login</button>
       </form>
 
-      <button class="button"><a href="/#/create-account">sign up</a></button>
+      <p class="text-muted">No account yet? <a href="/#/create-account">Sign up</a>.</p>
 
   </div>
 
 </section>
 `;
 
-  // const homeButton = document.querySelector<HTMLButtonElement>("#home");
   const form = document.querySelector("form");
 
   if (!form) {

@@ -1,5 +1,4 @@
 import "../style.css";
-import travel from "../assets/travel.png";
 import { createUser } from "../api";
 
 export function renderCreateAccount(app: HTMLDivElement) {
@@ -11,36 +10,30 @@ export function renderCreateAccount(app: HTMLDivElement) {
 
   app.innerHTML = `
 <section id="center">
-  <div class="hero">
-    <img src="${travel}" class="base" width="170" height="179">
-  </div>
-  <div>
+  <div class="form-card">
     <h1>Create account</h1>
       <form>
         <div class="form-group">
           <label for="username">username</label>
-          <input id="username" name="username" type="text" required autocomplete="given-name" aria-errormessage="username-error" />
-          <p class="error-message" id="username-error">
-            Username must be at least 8 characters and only use letters and numbers.
+          <input id="username" name="username" type="text" required />
+          <p class="form-message" id="username-error">
+            Username must be at least 4 characters and only use letters and numbers.
           </p>
         </div>
         <div class="form-group">
           <label for="password">password</label>
-          <input id="password" name="password" type="password" required autocomplete="family-name" aria-errormessage="password-error" />
-          <p class="error-message" id="password-error">
-            Password must be at least 12 characters, include an uppercase letter and a number.
+          <input id="password" name="password" type="password" required />
+          <p class="form-message" id="password-error">
+            Password must be at least 8 characters, include an uppercase letter and a number.
           </p>
         </div>
         <div class="form-group">
           <label for="confirmPassword">confirm password</label>
-          <input id="confirmPassword" name="confirmPassword" type="password" required autocomplete="new-password" />
-          <p class="error-message" id="confirm-password-error">
-            Passwords must match.
-          </p>
+          <input id="confirmPassword" name="confirmPassword" type="password" required />
         </div>
         <button class="button" type="submit">Create account</button>
       </form>
-      <p>Already have an account? <a href="/#/login">Login here</a>.</p>
+      <p class="text-muted">Already have an account? <a href="/#/login">Login here</a>.</p>
   </div>
 </section>
 `;
