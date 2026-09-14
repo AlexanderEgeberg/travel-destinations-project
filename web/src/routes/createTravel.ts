@@ -3,7 +3,21 @@ import { postTravel } from "../api";
 import { createTravelForm } from "../components/travelForm.ts";
 
 export function renderCreateTravel(app: HTMLDivElement) {
-  app.replaceChildren(
+  app.innerHTML = `
+    <section id="center">
+      <div class="form-card">
+        <h1>Create travel</h1>
+      </div>
+    </section>
+  `;
+
+  const card = app.querySelector<HTMLDivElement>(".form-card");
+
+  if (!card) {
+    throw new Error("Missing required DOM elements");
+  }
+
+  card.appendChild(
     createTravelForm("Create travel", async (data) => {
       await postTravel(data);
       window.location.hash = "#/";

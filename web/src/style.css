@@ -286,6 +286,18 @@ ul {
   }
 }
 
+.form-card {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  text-align: left;
+
+  h1 {
+    font-size: 32px;
+    margin: 0 0 20px;
+  }
+}
+
 form {
   display: flex;
   flex-direction: column;
@@ -315,6 +327,13 @@ form {
   padding: 6px 10px;
   box-sizing: border-box;
   width: 100%;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus-visible,
+.form-group textarea:focus-visible {
+  outline: none;
+  border-color: var(--accent-border);
 }
 
 form .button {
