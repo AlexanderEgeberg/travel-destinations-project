@@ -8,6 +8,7 @@ import { useState } from "../hooks/useState.ts";
 export async function renderTravel(app: HTMLDivElement) {
   const [editable, setEditable] = useState(false, () => renderTravel(app));
   const travelId = window.location.hash.split("/").at(-1) ?? "";
+  const isLoggedIn = !!localStorage.getItem("accessToken");
 
   app.innerHTML = `
 <section id="center">
@@ -16,8 +17,6 @@ export async function renderTravel(app: HTMLDivElement) {
     </div>
 
     <section>
-        <h1>Travel item</h1>
-        <p>Travel id: ${travelId}</p>
         <div id="travelList"></div>
     </section>
 </section>
@@ -41,50 +40,55 @@ export async function renderTravel(app: HTMLDivElement) {
       return;
     }
 
-    const isLoggedIn = !!localStorage.getItem("accessToken");
+    travelList.appendChild(createTravelCard(travel));
 
-    const card = createTravelCard(travel);
-    travelList.appendChild(card);
+    if (!isLoggedIn) return;
 
-    if (isLoggedIn) {
-      const toggleButton = document.createElement("button");
-      toggleButton.className = "button";
-      toggleButton.textContent = editable ? "Cancel edit" : "Edit";
-      toggleButton.addEventListener("click", () => setEditable(!editable));
-      travelList.appendChild(toggleButton);
+    travelList.appendChild(createToggleButton(editable, setEditable));
+    travelList.appendChild(createDeleteButton(travel.id));
 
-      const deleteButton = document.createElement("button");
-      deleteButton.className = "button";
-      deleteButton.textContent = "Delete";
-      deleteButton.addEventListener("click", async () => {
-        if (!window.confirm("Delete this travel destination?")) return;
-
-        try {
-          await deleteTravel(travel.id);
-          window.location.hash = "#/";
-        } catch (error) {
-          alert(
-            error instanceof Error ? error.message : "Failed to delete travel",
-          );
-        }
-      });
-      travelList.appendChild(deleteButton);
-
-      if (editable) {
-        travelList.appendChild(
-          createTravelForm(
-            "Save changes",
-            async (data) => {
-              await updateTravel(travel.id, data);
-              setEditable(false);
-            },
-            travel,
-          ),
-        );
-      }
+    if (editable) {
+      travelList.appendChild(
+        createTravelForm(
+          "Save changes",
+          async (data) => {
+            await updateTravel(travel.id, data);
+            setEditable(false);
+          },
+          travel,
+        ),
+      );
     }
   } catch (error) {
     travelList.textContent = "Failed to load travel destinations.";
     console.error(error);
   }
 }
+
+const createToggleButton = (
+  editable: boolean,
+  setEditable: (value: boolean) => void,
+) => {
+  const button = document.createElement("button");
+  button.className = "button";
+  button.textContent = editable ? "Cancel edit" : "Edit";
+  button.addEventListener("click", () => setEditable(!editable));
+  return button;
+};
+
+const createDeleteButton = (travelId: number) => {
+  const button = document.createElement("button");
+  button.className = "button";
+  button.textContent = "Delete";
+  button.addEventListener("click", async () => {
+    if (!window.confirm("Delete this travel destination?")) return;
+
+    try {
+      await deleteTravel(travelId);
+      window.location.hash = "#/";
+    } catch (error) {
+      alert(error instanceof Error ? error.message : "Failed to delete travel");
+    }
+  });
+  return button;
+};
