@@ -4,15 +4,19 @@ import { formatDateDdMmYyyy } from "../utils/date.ts";
 const travelTemplate = document.createElement("template");
 travelTemplate.innerHTML = `
   <article class="travel-card">
-    <h3 data-field="title"></h3>
-    <img data-field="image" alt="" />
-    <p data-field="location"></p>
-    <p data-field="dates"></p>
-    <p data-field="description"></p>
+    <h2 data-field="title"></h2>
+    <div class="travel-card-body">
+      <img data-field="image" alt="" />
+      <div class="travel-card-details">
+        <p data-field="location"></p>
+        <p data-field="dates"></p>
+        <p data-field="description"></p>
+      </div>
+    </div>
   </article>
 `;
 
-export function createTravelCard(travel: TravelDestination) {
+export function createTravelCard(travel: TravelDestination, detailed = false) {
   const fragment = travelTemplate.content.cloneNode(true) as DocumentFragment;
 
   const article = fragment.querySelector<HTMLElement>("article");
@@ -33,17 +37,24 @@ export function createTravelCard(travel: TravelDestination) {
   }
 
   article.id = String(travel.id);
-  article.addEventListener("click", () => {
-    window.location.hash = `#/travel/${travel.id}`;
-  });
+  article.classList.toggle("detailed", detailed);
+
+  if (!detailed) {
+    article.addEventListener("click", () => {
+      window.location.hash = `#/travel/${travel.id}`;
+    });
+  }
+
+  location.hidden = !detailed;
+  description.hidden = !detailed;
 
   image.src = travel.imgSrc;
   image.alt = travel.title;
 
   title.textContent = travel.title;
-  // location.textContent = `${travel.location}, ${travel.country}`;
+  location.textContent = `${travel.location}, ${travel.country}`;
   dates.textContent = `${formatDateDdMmYyyy(travel.dateFrom)} - ${formatDateDdMmYyyy(travel.dateTo)}`;
-  // description.textContent = travel.description || "No description provided.";
+  description.textContent = travel.description || "No description provided.";
 
   return fragment;
 }

@@ -68,8 +68,8 @@ function renderNav() {
   <ul>
     ${authButtonHTML}
     ${accessToken ? createHTML : ""}
-    <li><a href="/#">home</a></li>
-    <span>Velkommen ${user}</span>
+    <li><a href="/#">Homepage</a></li>
+    <span>Welcome ${user}</span>
   </ul>`;
 
   const logoutButton = nav.querySelector<HTMLButtonElement>("#logout");

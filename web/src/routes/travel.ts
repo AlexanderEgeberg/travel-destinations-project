@@ -1,5 +1,4 @@
 import "../style.css";
-import travel from "../assets/travel.png";
 import { deleteTravel, fetchTravel, updateTravel } from "../api";
 import { createTravelCard } from "../components/travelCard";
 import { createTravelForm } from "../components/travelForm.ts";
@@ -11,15 +10,9 @@ export async function renderTravel(app: HTMLDivElement) {
   const isLoggedIn = !!localStorage.getItem("accessToken");
 
   app.innerHTML = `
-<section id="center">
-    <div class="hero">
-        <img src="${travel}" class="base" width="170" height="179">
-    </div>
-
     <section>
         <div id="travelList"></div>
     </section>
-</section>
 `;
 
   const travelList = document.querySelector<HTMLDivElement>("#travelList");
@@ -40,12 +33,21 @@ export async function renderTravel(app: HTMLDivElement) {
       return;
     }
 
-    travelList.appendChild(createTravelCard(travel));
+    travelList.appendChild(createTravelCard(travel, true));
 
     if (!isLoggedIn) return;
 
-    travelList.appendChild(createToggleButton(editable, setEditable));
-    travelList.appendChild(createDeleteButton(travel.id));
+    const details = travelList.querySelector(".travel-card-details");
+
+    if (!details) {
+      throw new Error("Missing required DOM elements");
+    }
+
+    const actions = document.createElement("div");
+    actions.className = "travel-card-actions";
+    actions.appendChild(createToggleButton(editable, setEditable));
+    actions.appendChild(createDeleteButton(travel.id));
+    details.appendChild(actions);
 
     if (editable) {
       travelList.appendChild(

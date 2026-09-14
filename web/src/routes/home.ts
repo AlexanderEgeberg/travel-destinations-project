@@ -1,19 +1,12 @@
-import travel from "../assets/travel.png";
 import { fetchTravels } from "../api.ts";
 import { createTravelCard } from "../components/travelCard.ts";
 
 export async function renderHomepage(app: HTMLDivElement) {
   app.innerHTML = `
 <section id="center">
-  <div class="hero">
-    <img src="${travel}" class="base" width="170" height="179">
-  </div>
-  <div>
-    <h1>Travel destinations</h1>
-  </div>
+  <h1>Travel destinations</h1>
   <section>
-    <h2>Public destinations</h2>
-    <div id="travelList"></div>
+    <div id="travelList" class="travel-grid"></div>
   </section>
 </section>
 `;
@@ -36,7 +29,7 @@ export async function renderHomepage(app: HTMLDivElement) {
       return;
     }
 
-    const cards = travels.map(createTravelCard);
+    const cards = travels.map((t) => createTravelCard(t, false));
     travelList.replaceChildren(...cards);
   } catch (error) {
     travelList.textContent = "Failed to load travel destinations.";
