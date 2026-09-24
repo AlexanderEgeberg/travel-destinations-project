@@ -1,5 +1,5 @@
 import "../style.css";
-import { postTravel } from "../api";
+import { postTravel } from "../api.ts";
 import { createTravelForm } from "../components/travelForm.ts";
 
 export function renderCreateTravel(app: HTMLDivElement) {

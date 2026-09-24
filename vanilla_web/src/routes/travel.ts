@@ -1,6 +1,6 @@
 import "../style.css";
-import { deleteTravel, fetchTravel, updateTravel } from "../api";
-import { createTravelCard } from "../components/travelCard";
+import { deleteTravel, fetchTravel, updateTravel } from "../api.ts";
+import { createTravelCard } from "../components/travelCard.ts";
 import { createTravelForm } from "../components/travelForm.ts";
 import { useState } from "../hooks/useState.ts";
 
