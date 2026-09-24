@@ -2,13 +2,17 @@
 
 ## Screenshots
 
-| Login                 | Homepage                 |
-| --------------------- | ------------------------ |
-| ![Login](image-3.png) | ![Homepage](image-5.png) |
+| Login                 | Create account                 |
+| --------------------- | ------------------------------ |
+| ![Login](image-3.png) | ![create account](image-4.png) |
+
+| Homepage               |
+| ---------------------- |
+| ![Homepage](image.png) |
 
 | Create destination                 | Edit destination                 |
 | ---------------------------------- | -------------------------------- |
-| ![Create destination](image-1.png) | ![Edit destination](image-4.png) |
+| ![Create destination](image-2.png) | ![Edit destination](image-1.png) |
 
 ## Task description
 
@@ -27,6 +31,7 @@ eg. Title, Date (from and to), description, location, country.
 ### Frontend
 
 The frontend should only use standard html, css and javascript/typescript.
+
 1 page for creating a new travel destination, with multiple input fields
 corresponding to the desired data model, and validation you find
 suitable. We should have front-end validation where possible.
