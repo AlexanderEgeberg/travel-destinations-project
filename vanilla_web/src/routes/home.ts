@@ -5,8 +5,9 @@ export async function renderHomepage(app: HTMLDivElement) {
   const isLoggedIn = !!localStorage.getItem("accessToken");
   app.innerHTML = `
 <section>
-  <h1>Travel destinations</h1>
-  ${!isLoggedIn ? '<p class="text-muted">Login to add travel destinations</p>' : ""}
+
+  <h1 class="text-center">Travel destinations</h1>
+  ${!isLoggedIn ? '<p class="text-muted text-center">Login to add travel destinations</p>' : ""}
   <section>
     <div id="travelList" class="travel-grid"></div>
   </section>
