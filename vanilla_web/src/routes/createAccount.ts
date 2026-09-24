@@ -9,7 +9,7 @@ export function renderCreateAccount(app: HTMLDivElement) {
   }
 
   app.innerHTML = `
-<section id="center">
+<section>
   <div class="form-card">
     <h1>Create account</h1>
       <form>

@@ -10,7 +10,7 @@ export function renderLogin(app: HTMLDivElement) {
   }
 
   app.innerHTML = `
-<section id="center">
+<section>
   <div class="form-card">
     <h1>Login</h1>
       <form>

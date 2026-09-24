@@ -4,7 +4,7 @@ import { createTravelCard } from "../components/travelCard.ts";
 export async function renderHomepage(app: HTMLDivElement) {
   const isLoggedIn = !!localStorage.getItem("accessToken");
   app.innerHTML = `
-<section id="center">
+<section>
   <h1>Travel destinations</h1>
   ${!isLoggedIn ? '<p class="text-muted">Login to add travel destinations</p>' : ""}
   <section>
@@ -24,12 +24,13 @@ export async function renderHomepage(app: HTMLDivElement) {
   try {
     const { data } = await fetchTravels();
 
+    //clear old elemnts
     travelList.replaceChildren();
 
-    const cards: Node[] = data.map((t) => createTravelCard(t, false));
+    const cards: Node[] = data.map((card) => createTravelCard(card));
 
     if (isLoggedIn) {
-      cards.unshift(createAddDestinationCard());
+      cards.push(createAddDestinationCard());
     }
 
     if (cards.length === 0) {

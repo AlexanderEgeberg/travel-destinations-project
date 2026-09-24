@@ -1,7 +1,4 @@
-/* ==========================================================================
-   Vite template — base tokens, reset, and shared primitives
-   ========================================================================== */
-
+/* vite default styles, seemed pretty so kept it  ¯\_(ツ)_/¯ */
 :root {
   --text: #6b6375;
   --text-h: #08060d;
@@ -99,7 +96,6 @@ ul {
   background: var(--accent-bg);
   border: 2px solid transparent;
   transition: border-color 0.3s;
-  margin-bottom: 24px;
 
   &:hover {
     border-color: var(--accent-border);
@@ -110,9 +106,7 @@ ul {
   }
 }
 
-/* ==========================================================================
-   Project — travel destinations app
-   ========================================================================== */
+/* Project css */
 
 #nav {
   position: sticky;
@@ -121,16 +115,12 @@ ul {
   background: var(--bg);
   border-bottom: 1px solid var(--border);
   box-shadow: var(--shadow);
+  margin-bottom: 32px;
+  padding: 12px 24px;
 
   ul {
-    width: 1126px;
-    max-width: 100%;
-    margin: 0 auto;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 24px;
-    box-sizing: border-box;
-    gap: 1.25rem;
   }
 
   li {
@@ -139,80 +129,30 @@ ul {
     gap: 1.25rem;
   }
 
-  .button {
-    margin-bottom: 0;
-  }
-
-  a {
-    color: var(--text);
-    text-decoration: none;
-  }
-
-  a:hover {
-    color: var(--accent);
-  }
-
-  span {
-    color: var(--text);
-    font-size: 15px;
-  }
-
   .nav-home a {
     display: flex;
     align-items: center;
     gap: 8px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 6px 12px;
+    text-decoration: none;
   }
 
-  .nav-home img {
+  img {
     height: 24px;
     width: 24px;
-    object-fit: contain;
-  }
-}
-
-#app {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-}
-
-#center {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: center;
-  gap: 25px;
-  flex-grow: 1;
-  padding: 32px 24px;
-  box-sizing: border-box;
-
-  @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
-    gap: 18px;
   }
 }
 
 .travel-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
   gap: 24px;
+  padding: 12px 24px;
 }
 
 .travel-card {
-  text-align: left;
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 20px;
-  box-sizing: border-box;
 }
 
 .travel-card:not(.detailed) {
@@ -274,10 +214,6 @@ ul {
   display: flex;
   gap: 12px;
   margin-top: 12px;
-
-  .button {
-    margin-bottom: 0;
-  }
 }
 
 .form-card {

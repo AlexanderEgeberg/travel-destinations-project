@@ -4,7 +4,7 @@ import { createTravelForm } from "../components/travelForm.ts";
 
 export function renderCreateTravel(app: HTMLDivElement) {
   app.innerHTML = `
-    <section id="center">
+    <section>
       <div class="form-card">
         <h1>Create travel</h1>
       </div>
