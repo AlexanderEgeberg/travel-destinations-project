@@ -2,13 +2,13 @@
 
 ## Screenshots
 
-| Login                 | Homepage               |
-| --------------------- | ---------------------- |
-| ![Login](image-3.png) | ![Homepage](image.png) |
+| Login                 | Homepage                 |
+| --------------------- | ------------------------ |
+| ![Login](image-3.png) | ![Homepage](image-5.png) |
 
 | Create destination                 | Edit destination                 |
 | ---------------------------------- | -------------------------------- |
-| ![Create destination](image-1.png) | ![Edit destination](image-2.png) |
+| ![Create destination](image-1.png) | ![Edit destination](image-4.png) |
 
 ## Task description
 
