@@ -51,7 +51,7 @@ export function createTravelCard(travel: TravelDestination, detailed = false) {
   image.src = travel.imgSrc;
   image.alt = travel.title;
 
-  title.textContent = travel.title;
+  title.textContent = `${travel.title} - ${travel.location}, ${travel.country}`;
   location.textContent = `${travel.location}, ${travel.country}`;
   dates.textContent = `${formatDateDdMmYyyy(travel.dateFrom)} - ${formatDateDdMmYyyy(travel.dateTo)}`;
   description.textContent = travel.description || "No description provided.";
