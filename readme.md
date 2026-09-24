@@ -1,76 +1,53 @@
 # Travel Destinations
 
-A school project: a CRUD app for saving travel destinations, with a Node/Express API backed by PostgreSQL and a vanilla HTML/CSS/TypeScript frontend.
-
 ## Screenshots
 
-| Login | Homepage |
-|---|---|
+| Login                 | Homepage               |
+| --------------------- | ---------------------- |
 | ![Login](image-3.png) | ![Homepage](image.png) |
 
-| Create destination | Edit destination |
-|---|---|
+| Create destination                 | Edit destination                 |
+| ---------------------------------- | -------------------------------- |
 | ![Create destination](image-1.png) | ![Edit destination](image-2.png) |
 
 ## Task description
 
-**Backend**
+### Backend
 
-- Save travel destinations in a database: title, date (from/to), description, location, country.
-- Build with Node.js, exposing a REST API that sends JSON to the frontend.
-- CRUD operations for travel destinations, following REST principles.
-- Basic error handling, e.g. a destination can't be saved without a title.
+We expect you to save relevant information about travel destinations in a database with
+eg. Title, Date (from and to), description, location, country.
 
-| Requirement | Status |
-|---|---|
-| Create (title required) | ✅ |
-| Read all | ✅ |
-| Read one | ✅ |
-| Update one | ✅ |
-| Delete one (auth gated) | ✅ |
-| Users have a 1-to-many relation to travel destinations | ✅ |
+- The backend should be developed using the subjects from our classes about
+  NodeJs. The backend must be an API that sends data to the frontend using
+  JSON.
+- CRUD operations following REST principles for the travel destinations.
+- The backend should have basic error handling eg. it should not be possible to
+  save a travel destination without a title
 
-**Frontend**
+### Frontend
 
-Only standard HTML, CSS and JavaScript/TypeScript — no framework.
+The frontend should only use standard html, css and javascript/typescript.
+1 page for creating a new travel destination, with multiple input fields
+corresponding to the desired data model, and validation you find
+suitable. We should have front-end validation where possible.
+1 List view page, showing multiple/all travel destinations.
+1 page for showing an existing travel destination (for updating).
+Login and signup - pages and functionality.
 
-- A page for creating a new destination, with input fields for the data model and front-end validation.
-- A list view showing all destinations.
-- A page for viewing/updating an existing destination, using the same layout as creation but pre-filled.
-- Login and signup pages and functionality.
-- Delete, gated to authorized/logged-in users, with a confirmation dialog.
-- The UI updates/syncs after deleting without a page refresh.
-- Image upload for a destination, stored on the API and referenced from the database.
-
-| Requirement | Status |
-|---|---|
-| List view of all destinations | ✅ |
-| View existing destination (for updating) | ✅ |
-| Create destination | ✅ |
-| Update destination, pre-filled from existing data | ✅ |
-| Login and signup | ✅ |
-| Delete button only shown to authorized users | ✅ |
-| Delete confirmation dialog | ❌ |
-| UI updates after delete without a refresh | ✅ |
-
-> `react-web/` is an unstarted bonus rewrite of the frontend using React instead of vanilla HTML/CSS/JS — not part of the graded submission below.
+- The ability to login.
+- The ability to update existing destinations.
+- Use the same layout as creation, but with pre-filled information from the entity we want to edit.
+- The ability to delete a destination.
+- Only show the delete button for authorized/logged in users.
+- Add a confirmation dialog for deletion.
+- The Frontend should be able to dynamically update/sync the UI after deleting.
+- i.e. No refreshes to update/reload the data.
 
 ## How to run
 
-The project has two parts you run separately: `api/` and `vanilla_web/`. You'll need [Node.js](https://nodejs.org/) and a running [PostgreSQL](https://www.postgresql.org/) (>= 15) server.
+#### 1. Database
 
-### 1. Database
-
-```bash
-cd api
-cp .env.example .env
-```
-
-Edit `.env` and set `DATABASE_URL` to your own PostgreSQL connection string:
-
-```
-DATABASE_URL="postgresql://user:password@localhost:5432/mydb"
-```
+copy .env.example into .env file and update variables
 
 ### 2. API
 
@@ -79,7 +56,7 @@ With yarn (default):
 ```bash
 cd api
 yarn install
-yarn db      # creates the tables
+yarn db
 yarn dev
 ```
 
@@ -88,7 +65,7 @@ With npm:
 ```bash
 cd api
 npm install
-npm run db      # creates the tables
+npm run db
 npm run dev
 ```
 
@@ -109,5 +86,3 @@ cd vanilla_web
 npm install
 npm run dev
 ```
-
-Then open the URL Vite prints (usually [http://localhost:5173](http://localhost:5173)).
