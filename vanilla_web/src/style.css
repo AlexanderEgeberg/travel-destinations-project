@@ -156,6 +156,13 @@ ul {
   padding: 20px;
 }
 
+.travel-card:last-child {
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .travel-card:not(.detailed):hover {
   cursor: pointer;
   box-shadow: var(--shadow);
