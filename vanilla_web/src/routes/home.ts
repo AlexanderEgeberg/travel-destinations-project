@@ -48,9 +48,9 @@ export async function renderHomepage(app: HTMLDivElement) {
 
 function createAddDestinationCard() {
   const card = document.createElement("article");
-  card.className = "travel-card add-card";
+  card.className = "travel-card";
   card.innerHTML = `
-    <span class="add-card-icon">+</span>
+    <span>+</span>
     <span>Add destination</span>
   `;
   card.addEventListener("click", () => {

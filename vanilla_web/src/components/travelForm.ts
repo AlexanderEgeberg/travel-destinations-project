@@ -3,31 +3,31 @@ import type { NewTravelDestination, TravelDestination } from "../api.ts";
 const travelFormTemplate = document.createElement("template");
 travelFormTemplate.innerHTML = `
   <form>
-    <div class="form-group">
+    <div>
       <label for="title">title</label>
       <input id="title" name="title" type="text" required />
     </div>
-    <div class="form-group">
+    <div>
       <label for="location">location</label>
       <input id="location" name="location" type="text" required />
     </div>
-    <div class="form-group">
+    <div>
       <label for="country">country</label>
       <input id="country" name="country" type="text" required />
     </div>
-    <div class="form-group">
+    <div>
       <label for="imgSrc">image link</label>
       <input id="imgSrc" name="imgSrc" type="url" required />
     </div>
-    <div class="form-group">
+    <div>
       <label for="dateFrom">date from</label>
       <input id="dateFrom" name="dateFrom" type="date" required />
     </div>
-    <div class="form-group">
+    <div>
       <label for="dateTo">date to</label>
       <input id="dateTo" name="dateTo" type="date" required />
     </div>
-    <div class="form-group">
+    <div>
       <label for="description">description</label>
       <textarea id="description" name="description"></textarea>
     </div>

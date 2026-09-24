@@ -45,7 +45,6 @@ export async function renderTravel(app: HTMLDivElement) {
     }
 
     const actions = document.createElement("div");
-    actions.className = "travel-card-actions";
     actions.appendChild(createToggleButton(editable, setEditable));
     actions.appendChild(createDeleteButton(travel.id));
     details.prepend(actions);

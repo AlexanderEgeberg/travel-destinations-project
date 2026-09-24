@@ -13,21 +13,21 @@ export function renderCreateAccount(app: HTMLDivElement) {
   <div class="form-card">
     <h1>Create account</h1>
       <form>
-        <div class="form-group">
+        <div>
           <label for="username">username</label>
           <input id="username" name="username" type="text" required />
-          <p class="form-message" id="username-error">
+          <p id="username-error">
             Username must be at least 4 characters and only use letters and numbers.
           </p>
         </div>
-        <div class="form-group">
+        <div>
           <label for="password">password</label>
           <input id="password" name="password" type="password" required />
-          <p class="form-message" id="password-error">
+          <p id="password-error">
             Password must be at least 8 characters, include an uppercase letter and a number.
           </p>
         </div>
-        <div class="form-group">
+        <div>
           <label for="confirmPassword">confirm password</label>
           <input id="confirmPassword" name="confirmPassword" type="password" required />
         </div>

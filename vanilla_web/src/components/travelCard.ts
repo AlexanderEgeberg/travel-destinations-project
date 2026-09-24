@@ -5,7 +5,7 @@ const travelTemplate = document.createElement("template");
 travelTemplate.innerHTML = `
   <article class="travel-card">
     <h2 data-field="title"></h2>
-    <div class="travel-card-body">
+    <div>
       <img data-field="image" alt="" />
       <div class="travel-card-details">
         <p data-field="location"></p>

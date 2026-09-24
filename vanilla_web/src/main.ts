@@ -68,7 +68,7 @@ function renderNav() {
     <li class="nav-home">
       <a href="/#"><img src="${travelIcon}" alt="" />Homepage</a>
     </li>
-    <li class="nav-auth">
+    <li>
       <span>Welcome ${user}</span>
       ${authButtonHTML}
     </li>

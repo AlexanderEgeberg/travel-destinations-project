@@ -14,11 +14,11 @@ export function renderLogin(app: HTMLDivElement) {
   <div class="form-card">
     <h1>Login</h1>
       <form>
-        <div class="form-group">
+        <div>
           <label for="username">username</label>
           <input id="username" name="username" type="text" required/>
         </div>
-        <div class="form-group">
+        <div>
           <label for="password">password</label>
           <input id="password" name="password" type="password" required />
         </div>
