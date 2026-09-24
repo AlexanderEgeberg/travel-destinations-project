@@ -22,11 +22,11 @@ export async function renderHomepage(app: HTMLDivElement) {
   travelList.textContent = "Loading...";
 
   try {
-    const { travels } = await fetchTravels();
+    const { data } = await fetchTravels();
 
     travelList.replaceChildren();
 
-    const cards: Node[] = travels.map((t) => createTravelCard(t, false));
+    const cards: Node[] = data.map((t) => createTravelCard(t, false));
 
     if (isLoggedIn) {
       cards.unshift(createAddDestinationCard());

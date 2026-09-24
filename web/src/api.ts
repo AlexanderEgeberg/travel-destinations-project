@@ -51,18 +51,34 @@ export async function createUser(user: { username: string; password: string }) {
   return result;
 }
 
-export async function fetchTravels() {
-  const response = await fetch(endpoint + "/travel_destinations", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
+export type Pagination = {
+  page: number;
+  limit: number;
+  total: number;
+  totalPages: number;
+};
+
+export async function fetchTravels(params?: { page?: number; limit?: number }) {
+  const query = new URLSearchParams();
+  if (params?.page) query.set("page", String(params.page));
+  if (params?.limit) query.set("limit", String(params.limit));
+  const queryString = query.toString();
+
+  const response = await fetch(
+    endpoint + "/travel_destinations" + (queryString ? `?${queryString}` : ""),
+    {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+      },
     },
-  });
+  );
 
   if (!response.ok) throw new Error(`GET fejlede: ${response.status}`);
 
   const result = (await response.json()) as {
-    travels: TravelDestination[];
+    data: TravelDestination[];
+    pagination: Pagination;
   };
   console.log("res", result);
   return result;

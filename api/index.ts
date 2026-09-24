@@ -26,6 +26,11 @@ const TravelDestinationParams = z
   })
   .strict();
 
+const TravelDestinationsQuery = z.object({
+  page: z.coerce.number().int().positive().default(1),
+  limit: z.coerce.number().int().positive().max(100).default(10),
+});
+
 dotenv.config();
 
 const app: Express = express();
@@ -76,10 +81,33 @@ app.get("/travel_destination/:id", async (req: Request, res: Response) => {
   });
 });
 app.get("/travel_destinations", async (req: Request, res: Response) => {
-  const travels = await db.orm.public.TravelDestination.all();
+  const parsedQuery = await TravelDestinationsQuery.safeParseAsync(req.query);
+
+  if (!parsedQuery.success) {
+    return res.status(400).json({
+      error: "Invalid query params",
+      details: parsedQuery.error.flatten(),
+    });
+  }
+
+  const { page, limit } = parsedQuery.data;
+
+  const [travels, { total }] = await Promise.all([
+    db.orm.public.TravelDestination.orderBy((t) => t.createdAt.desc())
+      .limit(limit)
+      .offset((page - 1) * limit)
+      .all(),
+    db.orm.public.TravelDestination.aggregate((a) => ({ total: a.count() })),
+  ]);
 
   res.status(200).json({
-    travels,
+    data: travels,
+    pagination: {
+      page,
+      limit,
+      total,
+      totalPages: Math.ceil(total / limit),
+    },
   });
 });
 
