@@ -1,50 +1,113 @@
-Backend - ✅
-We expect you to save relevant information about travel destinations in a database with
-eg. Title, Date (from and to), description, location, country.
-• The backend should be developed using the subjects from our classes about
-NodeJs. The backend must be an API that sends data to the frontend using
-JSON.
-• CRUD operations following REST principles for the travel destinations.
-• The backend should have basic error handling eg
-. it should not be possible to
-save a travel destination without a title.
+# Travel Destinations
 
-create 1 title required - ✅
-read all - ✅
-read 1 - ✅
-update 1 - ✅
-delete 1 auth gate - ✅
+A school project: a CRUD app for saving travel destinations, with a Node/Express API backed by PostgreSQL and a vanilla HTML/CSS/TypeScript frontend.
 
-Frontend
-The frontend should only use standard html, css and javascript/typescript.
-o 1 page for creating a new travel destination, with multiple input fields
-corresponding to the desired data model, and validation you find
-suitable. We should have front-end validation where possible.
+## Screenshots
 
-o 1 List view page, showing multiple/all travel destinations.  ✅
+| Login | Homepage |
+|---|---|
+| ![Login](image-3.png) | ![Homepage](image.png) |
 
-o 1 page for showing an existing travel destination (for updating). ✅
-• Add create - ✅
-• The ability to update existing destinations . ✅
-• Use the same layout as creation, but with pre-filled information from the entity we want to edit. ✅
+| Create destination | Edit destination |
+|---|---|
+| ![Create destination](image-1.png) | ![Edit destination](image-2.png) |
 
-o Login and signup - pages and functionality. ✅
-• The ability to login. ✅
+## Task description
 
-• The ability to delete a destination .
-• Only show the delete button for authorized/logged in users. ✅
-• Add a confirmation dialog for deletion.
-• The Frontend should be able to dynamically update/sync the UI after deleting. ✅
-• i.e. No refreshes to update/reload the data. ✅ Tja jeg router til homepage som kalder fetch igen?
+**Backend**
 
-create 1
-read all
-read 1
-update 1
-delete 1 auth gate
+- Save travel destinations in a database: title, date (from/to), description, location, country.
+- Build with Node.js, exposing a REST API that sends JSON to the frontend.
+- CRUD operations for travel destinations, following REST principles.
+- Basic error handling, e.g. a destination can't be saved without a title.
 
-1-many relation users -> travel_destinations
-travel_destinations private/public (need auth to get private) call it published?
-add pics ( read write file in api folder, store reference in db)
+| Requirement | Status |
+|---|---|
+| Create (title required) | ✅ |
+| Read all | ✅ |
+| Read one | ✅ |
+| Update one | ✅ |
+| Delete one (auth gated) | ✅ |
+| Users have a 1-to-many relation to travel destinations | ✅ |
 
-- TODO gør det pænt, lige nu virker det men det er grimt af
+**Frontend**
+
+Only standard HTML, CSS and JavaScript/TypeScript — no framework.
+
+- A page for creating a new destination, with input fields for the data model and front-end validation.
+- A list view showing all destinations.
+- A page for viewing/updating an existing destination, using the same layout as creation but pre-filled.
+- Login and signup pages and functionality.
+- Delete, gated to authorized/logged-in users, with a confirmation dialog.
+- The UI updates/syncs after deleting without a page refresh.
+- Image upload for a destination, stored on the API and referenced from the database.
+
+| Requirement | Status |
+|---|---|
+| List view of all destinations | ✅ |
+| View existing destination (for updating) | ✅ |
+| Create destination | ✅ |
+| Update destination, pre-filled from existing data | ✅ |
+| Login and signup | ✅ |
+| Delete button only shown to authorized users | ✅ |
+| Delete confirmation dialog | ❌ |
+| UI updates after delete without a refresh | ✅ |
+
+> `react-web/` is an unstarted bonus rewrite of the frontend using React instead of vanilla HTML/CSS/JS — not part of the graded submission below.
+
+## How to run
+
+The project has two parts you run separately: `api/` and `vanilla_web/`. You'll need [Node.js](https://nodejs.org/) and a running [PostgreSQL](https://www.postgresql.org/) (>= 15) server.
+
+### 1. Database
+
+```bash
+cd api
+cp .env.example .env
+```
+
+Edit `.env` and set `DATABASE_URL` to your own PostgreSQL connection string:
+
+```
+DATABASE_URL="postgresql://user:password@localhost:5432/mydb"
+```
+
+### 2. API
+
+With yarn (default):
+
+```bash
+cd api
+yarn install
+yarn db      # creates the tables
+yarn dev
+```
+
+With npm:
+
+```bash
+cd api
+npm install
+npm run db      # creates the tables
+npm run dev
+```
+
+### 3. Frontend
+
+With yarn (default):
+
+```bash
+cd vanilla_web
+yarn install
+yarn dev
+```
+
+With npm:
+
+```bash
+cd vanilla_web
+npm install
+npm run dev
+```
+
+Then open the URL Vite prints (usually [http://localhost:5173](http://localhost:5173)).
